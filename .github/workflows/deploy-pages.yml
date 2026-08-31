@@ -32,6 +32,12 @@ jobs:
           test -f site/index.html
           test -f site/v2-1-events.js
           test -f site/v2-1-core.js
+      - name: Apply verified open-choice patch 9006f25
+        run: |
+          echo "2b08a292eac139041196ebd14a9556639671e5f91f1b064d068900e02033904d  index.html" | sha256sum --check --strict
+          echo "b46a0d35c16abb72d498a7dfea1760a7153856b7efeff8ce4bcdaaa1d82a6dca  v2-game.js" | sha256sum --check --strict
+          cp index.html site/index.html
+          cp v2-game.js site/v2-game.js
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
