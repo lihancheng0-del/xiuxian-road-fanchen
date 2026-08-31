@@ -23,10 +23,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Extract game
+      - name: Verify and extract V2.1 game
         run: |
+          cat github-pages-v21.zip.part01 github-pages-v21.zip.part02 github-pages-v21.zip.part03 github-pages-v21.zip.part04 > /tmp/xiuxian-v21.zip
+          echo "5e98e29fc2112eb4058cc4021e27072ce6c0276b6a28a06f3d8ad68c99f22b49  /tmp/xiuxian-v21.zip" | sha256sum --check --strict
           mkdir -p site
-          unzip -q github-pages-site.zip -d site
+          unzip -q /tmp/xiuxian-v21.zip -d site
+          test -f site/index.html
+          test -f site/v2-1-events.js
+          test -f site/v2-1-core.js
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
